@@ -24,6 +24,9 @@ module.exports = {
   },
 
   create: function(params, callback) {
+    var zips = params['zipCodes']
+    params['zipCodes'] = zips.split(',').map((zip) => zip.trim())
+
     Zone.create(params, function(err, zone) {
       if (err) {
         callback(err, null)
