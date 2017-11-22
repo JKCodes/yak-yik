@@ -11,11 +11,7 @@ class Comments extends Component {
         body: '',
         timestamp: ''
       },
-      list: [
-        {body:'comment 1', username: 'user1', timestamp:'10:30'},
-        {body:'comment 2', username: 'user2', timestamp:'10:45'},
-        {body:'comment 3', username: 'user3', timestamp:'11:00'}
-      ]
+      list: []
     }
   }
 
@@ -23,7 +19,7 @@ class Comments extends Component {
     console.log(this.state.comment)
     let updatedList = Object.assign([], this.state.list)
     updatedList.push(this.state.comment)
-    
+
     this.setState({
       list: updatedList  
     })
