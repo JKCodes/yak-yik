@@ -2,6 +2,30 @@ export default {
   universal: {
 
   },
+  comment: {
+    commentBody: {
+      fontSize:20,
+      fontWeight:400
+    },
+    commentData: {
+      fontWeight:200
+    },
+    commentBar: {
+      fontWeight:200,
+      marginLeft:12,
+      marginRight:12
+    }
+  },
+  comments: {
+    commentsBox: {
+      padding:12, 
+      background:'#f9f9f9', 
+      border:'1px solid #ddd'
+    },
+    commentList: {
+      listStyleType: 'none'
+    }
+  },
   zone: {
     container: {
       padding:16, 
