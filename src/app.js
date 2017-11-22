@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Zones from './components/Zones';
+import Home from './components/Home';
 
 class App extends Component {
 
@@ -8,7 +8,7 @@ class App extends Component {
     return (
       <div>
         Hello There!
-        <Zones />
+        <Home />
       </div>
     )
   }
