@@ -6,12 +6,36 @@ class Comments extends Component {
   constructor() {
     super()
     this.state = {
+      comment: {
+        username: '',
+        body: '',
+        timestamp: ''
+      },
       list: [
         {body:'comment 1', username: 'user1', timestamp:'10:30'},
         {body:'comment 2', username: 'user2', timestamp:'10:45'},
         {body:'comment 3', username: 'user3', timestamp:'11:00'}
       ]
     }
+  }
+
+  submitComment() {
+    console.log(this.state.comment)
+    let updatedList = Object.assign([], this.state.list)
+    updatedList.push(this.state.comment)
+    
+    this.setState({
+      list: updatedList  
+    })
+  }
+
+  updateComment(param, event) {
+    let updatedComment = Object.assign({}, this.state.comment)
+    updatedComment[param] = event.target.value
+    
+    this.setState({
+      comment: updatedComment
+    })
   }
 
   render() {
@@ -30,6 +54,11 @@ class Comments extends Component {
           <ul style={style.commentList}>
             { commentList }
           </ul>
+
+          <input onChange={this.updateComment.bind(this, 'username')} className="form-control" type="text" placeholder="Username" /><br />
+          <input onChange={this.updateComment.bind(this, 'body')}className="form-control" type="text" placeholder="Comment" /><br />
+          <input onChange={this.updateComment.bind(this, 'timestamp')}className="form-control" type="text" placeholder="Timestamp" /><br />
+          <button onClick={this.submitComment.bind(this)} className="btn btn-info" >Submit Comment</button>
         </div>
       </div>
     )
