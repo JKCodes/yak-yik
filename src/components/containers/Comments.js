@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Comment from './Comment';
+import Comment from '../presentation/Comment';
 import styles from './styles';
 
 class Comments extends Component {

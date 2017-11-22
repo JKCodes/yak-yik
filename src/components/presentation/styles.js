@@ -16,16 +16,6 @@ export default {
       marginRight:12
     }
   },
-  comments: {
-    commentsBox: {
-      padding:12, 
-      background:'#f9f9f9', 
-      border:'1px solid #ddd'
-    },
-    commentList: {
-      listStyleType: 'none'
-    }
-  },
   zone: {
     container: {
       padding:16, 
