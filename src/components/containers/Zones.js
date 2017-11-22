@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Zone from '../presentation/Zone'
+import Zone from '../presentation/Zone';
+import superagent from 'superagent';
 
 class Zones extends Component {
   constructor() {
@@ -11,6 +12,23 @@ class Zones extends Component {
       },
       list: []
     }
+  }
+
+  componentDidMount() {
+    superagent
+    .get('/api/zone')
+    .query(null)
+    .set('Accept', 'application/json')
+    .end((err, response) => {
+      if (err) {
+        return
+      }
+
+      let results = response.body.results
+      this.setState({
+        list: results
+      })
+    })
   }
 
   updateZone(event) {
