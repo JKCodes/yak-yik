@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import styles from './styles';
 import { APIManager } from '../../utils';
 import { Comment, CreateComment } from '../presentation';
+import actions from '../../actions';
+import { connect } from 'react-redux';
 
 class Comments extends Component {
   constructor() {
@@ -18,9 +20,7 @@ class Comments extends Component {
         return
       }
 
-      this.setState({
-        list: response.results
-      })
+      this.props.commentsReceived(response.results)
     })
   }
 
@@ -41,7 +41,7 @@ class Comments extends Component {
   }
 
   render() {
-    const commentList = this.state.list.map((comment, i) => {
+    const commentList = this.props.list.map((comment, i) => {
       return (
         <li key={i}><Comment currentComment={comment} /></li>
       )
@@ -64,4 +64,16 @@ class Comments extends Component {
   }
 }
 
-export default Comments;
+const stateToProps = (state) => {
+  return {
+    list: state.comment.list
+  }
+} 
+
+const dispatchToProps = (dispatch) => {
+  return {
+    commentsReceived: (comments) => dispatch(actions.commentsReceived(comments)) 
+  }
+}
+
+export default connect(stateToProps, dispatchToProps)(Comments);

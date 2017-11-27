@@ -7,5 +7,12 @@ export default {
       type: constants.ZONES_RECEIVED,
       zones: zones      
     }
+  },
+
+  commentsReceived: (comments) => {
+    return  {
+      type: constants.COMMENTS_RECEIVED,
+      comments: comments      
+    }
   }
 }

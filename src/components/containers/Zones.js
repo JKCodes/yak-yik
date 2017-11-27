@@ -21,10 +21,6 @@ class Zones extends Component {
       }
 
       this.props.zonesReceived(response.results)
-
-      // this.setState({
-      //   list: response.results
-      // })
     })
   }
 

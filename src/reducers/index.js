@@ -1,5 +1,7 @@
 import zoneReducer from './zoneReducer'
+import commentReducer from './commentReducer'
 
 export {
-  zoneReducer
+  zoneReducer,
+  commentReducer
 }
