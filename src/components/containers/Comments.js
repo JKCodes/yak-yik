@@ -17,14 +17,14 @@ class Comments extends Component {
   }
 
   componentDidMount() {
-    APIManager.get('/api/comment', null, (err, results) => {
+    APIManager.get('/api/comment', null, (err, response) => {
       if (err) {
         alert('ERROR: ' + err.message)
         return
       }
 
       this.setState({
-        list: results.results
+        list: response.results
       })
     })
   }

@@ -15,14 +15,14 @@ class Zones extends Component {
   }
 
   componentDidMount() {
-    APIManager.get('/api/zone', null, (err, results) => {
+    APIManager.get('/api/zone', null, (err, response) => {
       if (err) {
         alert('ERROR: ' + err.message)
         return
       }
 
       this.setState({
-        list: results.results
+        list: response.results
       })
     })
   }
