@@ -20,7 +20,7 @@ class CreateComment extends Component {
     })
   }
 
-  submitComment(event) {
+  submitComment() {
     this.props.onCreate(this.state.comment)
   }
 

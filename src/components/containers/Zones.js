@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
-import { Zone } from '../presentation';
+import { Zone, CreateZone } from '../presentation';
 import { APIManager } from '../../utils';
 
 class Zones extends Component {
   constructor() {
     super()
     this.state = {
-      zone: {
-        name: '',
-        zipCode: ''
-      },
       list: []
     }
   }
@@ -27,26 +23,17 @@ class Zones extends Component {
     })
   }
 
-  updateZone(event) {
-    let updatedZone = Object.assign({}, this.state.zone)
-    updatedZone[event.target.id] = event.target.value
-    
-    this.setState({
-      zone: updatedZone
-    })
-  }
-
-  submitZone() {
-    let updatedZone = Object.assign({}, this.state.zone)
+  submitZone(zone) {
+    let updatedZone = Object.assign({}, zone)
     updatedZone['zipCodes'] = updatedZone.zipCode.split(',').map((zip) => zip.trim())
-
 
     APIManager.post('/api/zone', updatedZone, (err, response) => {
       if (err) {
         alert('ERROR: ' + err.message)
         return
       }
-    
+
+
       let updatedList = Object.assign([], this.state.list)
       updatedList.push(response.result)
     
@@ -70,9 +57,7 @@ class Zones extends Component {
           {listItems}
         </ol>
 
-        <input id="name" onChange={this.updateZone.bind(this)} className="form-control" type="text" placeholder="Name" /><br />
-        <input id="zipCode" onChange={this.updateZone.bind(this)} className="form-control" type="text" placeholder="Zip Code" /><br />
-        <button onClick={this.submitZone.bind(this)} className="btn btn-danger">Add Zone</button> 
+        <CreateZone onCreate={this.submitZone.bind(this)}/>
       </div>
     )
   }
