@@ -31,12 +31,7 @@ class Comments extends Component {
         return
       }
     
-      let updatedList = Object.assign([], this.state.list)
-      updatedList.push(response.result)
-    
-      this.setState({
-        list: updatedList  
-      })
+      this.props.commentCreated(response.result)
     })
   }
 
@@ -72,7 +67,8 @@ const stateToProps = (state) => {
 
 const dispatchToProps = (dispatch) => {
   return {
-    commentsReceived: (comments) => dispatch(actions.commentsReceived(comments)) 
+    commentsReceived: (comments) => dispatch(actions.commentsReceived(comments)),
+    commentCreated: (comment) => dispatch(actions.commentCreated(comment))
   }
 }
 
