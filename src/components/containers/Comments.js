@@ -9,8 +9,7 @@ class Comments extends Component {
     this.state = {
       comment: {
         username: '',
-        body: '',
-        timestamp: ''
+        body: ''
       },
       list: []
     }
@@ -30,12 +29,20 @@ class Comments extends Component {
   }
 
   submitComment() {
-    console.log(this.state.comment)
-    let updatedList = Object.assign([], this.state.list)
-    updatedList.push(this.state.comment)
+    let updatedComment = Object.assign({}, this.state.comment)
 
-    this.setState({
-      list: updatedList  
+    APIManager.post('/api/comment', updatedComment, (err, response) => {
+      if (err) {
+        alert('ERROR: ' + err.message)
+        return
+      }
+    
+      let updatedList = Object.assign([], this.state.list)
+      updatedList.push(response.result)
+    
+      this.setState({
+        list: updatedList  
+      })
     })
   }
 
@@ -67,7 +74,6 @@ class Comments extends Component {
 
           <input onChange={this.updateComment.bind(this, 'username')} className="form-control" type="text" placeholder="Username" /><br />
           <input onChange={this.updateComment.bind(this, 'body')}className="form-control" type="text" placeholder="Comment" /><br />
-          <input onChange={this.updateComment.bind(this, 'timestamp')}className="form-control" type="text" placeholder="Timestamp" /><br />
           <button onClick={this.submitComment.bind(this)} className="btn btn-info" >Submit Comment</button>
         </div>
       </div>
