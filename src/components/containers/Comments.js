@@ -36,17 +36,18 @@ class Comments extends Component {
   }
 
   render() {
-    const commentList = this.props.list.map((comment, i) => {
+    const commentList = this.props.comments.map((comment, i) => {
       return (
         <li key={i}><Comment currentComment={comment} /></li>
       )
     })
 
     const style = styles.comments;
-
+    const selectedZone = this.props.zones[this.props.index]
+    const zoneName = (selectedZone == null) ? '' : selectedZone.name
     return (
       <div>
-        <h2>Comments: Zone {this.props.index}</h2>
+        <h2>{zoneName}</h2>
         <div style={style.commentsBox}>
           <ul style={style.commentList}>
             { commentList }
@@ -61,8 +62,9 @@ class Comments extends Component {
 
 const stateToProps = (state) => {
   return {
-    list: state.comment.list,
-    index: state.zone.selectedZone
+    comments: state.comment.list,
+    index: state.zone.selectedZone,
+    zones: state.zone.list
   }
 } 
 
