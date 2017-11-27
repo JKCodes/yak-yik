@@ -24,10 +24,7 @@ class Zones extends Component {
   }
 
   submitZone(zone) {
-    let updatedZone = Object.assign({}, zone)
-    updatedZone['zipCodes'] = updatedZone.zipCode.split(',').map((zip) => zip.trim())
-
-    APIManager.post('/api/zone', updatedZone, (err, response) => {
+    APIManager.post('/api/zone', zone, (err, response) => {
       if (err) {
         alert('ERROR: ' + err.message)
         return

@@ -20,7 +20,10 @@ class CreateZone extends Component {
   }
 
   submitZone() {
-    this.props.onCreate(this.state.zone)
+    let updatedZone = Object.assign({}, this.state.zone)
+    updatedZone['zipCodes'] = updatedZone.zipCode.split(',').map((zip) => zip.trim())
+
+    this.props.onCreate(updatedZone)
   }
   render() {
     return (
