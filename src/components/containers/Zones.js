@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Zone from '../presentation/Zone';
-import superagent from 'superagent';
+import { APIManager } from '../../utils';
 
 class Zones extends Component {
   constructor() {
@@ -15,18 +15,14 @@ class Zones extends Component {
   }
 
   componentDidMount() {
-    superagent
-    .get('/api/zone')
-    .query(null)
-    .set('Accept', 'application/json')
-    .end((err, response) => {
+    APIManager.get('/api/zone', null, (err, results) => {
       if (err) {
+        alert('ERROR: ' + err.message)
         return
       }
 
-      let results = response.body.results
       this.setState({
-        list: results
+        list: results.results
       })
     })
   }
