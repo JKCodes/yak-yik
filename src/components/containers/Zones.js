@@ -31,13 +31,7 @@ class Zones extends Component {
         return
       }
 
-
-      let updatedList = Object.assign([], this.state.list)
-      updatedList.push(response.result)
-    
-      this.setState({
-        list: updatedList  
-      })
+      this.props.zoneCreated(response.result)
     })
   }
 
@@ -83,7 +77,8 @@ const stateToProps = (state) => {
 
 const dispatchToProps = (dispatch) => {
   return {
-    zonesReceived: (zones) => dispatch(actions.zonesReceived(zones)) 
+    zonesReceived: (zones) => dispatch(actions.zonesReceived(zones)),
+    zoneCreated: (zone) => dispatch(actions.zoneCreated(zone))
   }
 }
 
