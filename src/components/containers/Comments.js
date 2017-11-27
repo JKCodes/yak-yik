@@ -29,9 +29,7 @@ class Comments extends Component {
   }
 
   submitComment() {
-    let updatedComment = Object.assign({}, this.state.comment)
-
-    APIManager.post('/api/comment', updatedComment, (err, response) => {
+    APIManager.post('/api/comment', this.state.comment, (err, response) => {
       if (err) {
         alert('ERROR: ' + err.message)
         return
