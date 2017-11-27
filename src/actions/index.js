@@ -16,6 +16,13 @@ export default {
     }
   },  
 
+  selectZone: (index) => {
+    return {
+      type: constants.SELECT_ZONE,
+      selectedZone: index
+    }
+  },
+
   commentsReceived: (comments) => {
     return  {
       type: constants.COMMENTS_RECEIVED,

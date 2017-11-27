@@ -1,6 +1,7 @@
 import constants from '../constants'
 
 var initialState = {
+  selectedZone: 0,
   list: []
 }
 
@@ -21,6 +22,10 @@ export default (state = initialState, action) => {
 
       return updated
 
+    case constants.SELECT_ZONE:
+      updated['selectedZone'] = action.selectedZone
+
+      return updated
     default:
       return state
   }

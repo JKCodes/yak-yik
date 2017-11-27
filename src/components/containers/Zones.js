@@ -8,8 +8,7 @@ class Zones extends Component {
   constructor() {
     super()
     this.state = {
-      selected: 0,
-      list: []
+
     }
   }
 
@@ -36,15 +35,13 @@ class Zones extends Component {
   }
 
   selectZone(index) {
-    this.setState({
-      selected: index
-    })
+    this.props.selectZone(index)
   }
 
   render() {
 
     const listItems = this.props.list.map((zone, i) => {
-      let selected = (i == this.state.selected)
+      let selected = (i == this.props.selected)
       return (
         <li key={i}>
           <Zone 
@@ -71,14 +68,16 @@ class Zones extends Component {
 
 const stateToProps = (state) => {
   return {
-    list: state.zone.list
+    list: state.zone.list,
+    selected: state.zone.selectedZone
   }
 } 
 
 const dispatchToProps = (dispatch) => {
   return {
     zonesReceived: (zones) => dispatch(actions.zonesReceived(zones)),
-    zoneCreated: (zone) => dispatch(actions.zoneCreated(zone))
+    zoneCreated: (zone) => dispatch(actions.zoneCreated(zone)),
+    selectZone: (index) => dispatch(actions.selectZone(index))
   }
 }
 

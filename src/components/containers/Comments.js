@@ -9,7 +9,7 @@ class Comments extends Component {
   constructor() {
     super()
     this.state = {
-      list: []
+
     }
   }
 
