@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Comment from '../presentation/Comment';
 import styles from './styles';
 import { APIManager } from '../../utils';
+import { Comment, CreateComment } from '../presentation';
 
 class Comments extends Component {
   constructor() {
@@ -69,6 +69,8 @@ class Comments extends Component {
           <ul style={style.commentList}>
             { commentList }
           </ul>
+
+          <CreateComment />
 
           <input onChange={this.updateComment.bind(this, 'username')} className="form-control" type="text" placeholder="Username" /><br />
           <input onChange={this.updateComment.bind(this, 'body')}className="form-control" type="text" placeholder="Comment" /><br />
