@@ -46,7 +46,7 @@ class Comments extends Component {
 
     return (
       <div>
-        <h2>Comments: Zone 1</h2>
+        <h2>Comments: Zone {this.props.index}</h2>
         <div style={style.commentsBox}>
           <ul style={style.commentList}>
             { commentList }
@@ -61,7 +61,8 @@ class Comments extends Component {
 
 const stateToProps = (state) => {
   return {
-    list: state.comment.list
+    list: state.comment.list,
+    index: state.zone.selectedZone
   }
 } 
 
