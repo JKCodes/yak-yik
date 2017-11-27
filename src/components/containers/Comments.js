@@ -7,10 +7,6 @@ class Comments extends Component {
   constructor() {
     super()
     this.state = {
-      comment: {
-        username: '',
-        body: ''
-      },
       list: []
     }
   }
@@ -28,8 +24,8 @@ class Comments extends Component {
     })
   }
 
-  submitComment() {
-    APIManager.post('/api/comment', this.state.comment, (err, response) => {
+  submitComment(comment) {
+    APIManager.post('/api/comment', comment, (err, response) => {
       if (err) {
         alert('ERROR: ' + err.message)
         return
@@ -41,15 +37,6 @@ class Comments extends Component {
       this.setState({
         list: updatedList  
       })
-    })
-  }
-
-  updateComment(param, event) {
-    let updatedComment = Object.assign({}, this.state.comment)
-    updatedComment[param] = event.target.value
-    
-    this.setState({
-      comment: updatedComment
     })
   }
 
@@ -70,11 +57,7 @@ class Comments extends Component {
             { commentList }
           </ul>
 
-          <CreateComment />
-
-          <input onChange={this.updateComment.bind(this, 'username')} className="form-control" type="text" placeholder="Username" /><br />
-          <input onChange={this.updateComment.bind(this, 'body')}className="form-control" type="text" placeholder="Comment" /><br />
-          <button onClick={this.submitComment.bind(this)} className="btn btn-info" >Submit Comment</button>
+          <CreateComment onCreate={this.submitComment.bind(this)} />
         </div>
       </div>
     )
