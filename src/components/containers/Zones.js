@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Zone, CreateZone } from '../presentation';
 import { APIManager } from '../../utils';
+import actions from '../../actions';
+import { connect } from 'react-redux';
 
 class Zones extends Component {
   constructor() {
@@ -18,9 +20,11 @@ class Zones extends Component {
         return
       }
 
-      this.setState({
-        list: response.results
-      })
+      this.props.zonesReceived(response.results)
+
+      // this.setState({
+      //   list: response.results
+      // })
     })
   }
 
@@ -49,7 +53,7 @@ class Zones extends Component {
 
   render() {
 
-    const listItems = this.state.list.map((zone, i) => {
+    const listItems = this.props.list.map((zone, i) => {
       let selected = (i == this.state.selected)
       return (
         <li key={i}>
@@ -75,4 +79,16 @@ class Zones extends Component {
   }
 }
 
-export default Zones;
+const stateToProps = (state) => {
+  return {
+    list: state.zone.list
+  }
+} 
+
+const dispatchToProps = (dispatch) => {
+  return {
+    zonesReceived: (zones) => dispatch(actions.zonesReceived(zones)) 
+  }
+}
+
+export default connect(stateToProps, dispatchToProps)(Zones);
