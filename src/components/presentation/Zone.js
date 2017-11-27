@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import styles from './styles';
 
 class Zone extends Component {
-  onSelectZone() {
+  onSelectZone(event) {
+    event.preventDefault()
     this.props.select(this.props.index)  
   }
 
