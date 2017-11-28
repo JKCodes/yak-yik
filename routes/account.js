@@ -17,9 +17,20 @@ router.get('/:action', function(req, res, next) {
       return
     }
 
-    res.json({
-      confirmation: 'success',
-      user: req.session.user
+    ProfileController.findById(req.session.user, function(err, result) {
+      if (err) {
+        res.json({
+          confirmation: 'fail',
+          message: err
+        })
+
+        return
+      }
+
+      res.json({
+        confirmation: 'success',
+        user: result
+      })
     })
   }
 })
