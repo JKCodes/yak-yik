@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Home from './components/layout/Home';
+import { Home, ProfileInfo } from './components/layout';
 import { Provider } from 'react-redux';
 import store from './stores';
 import { BrowserRouter as Router, Route, IndexRoute, Switch } from 'react-router-dom';
