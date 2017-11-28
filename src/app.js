@@ -8,7 +8,10 @@ import { BrowserRouter as Router, Route, IndexRoute, Switch } from 'react-router
 const app = (
   <Provider store={store.configureStore() }>
     <Router>
-      <Route path='/' component={Home}></Route>
+      <Switch>
+        <Route exact path='/' component={Home} />
+        <Route exact path='/profile/:username' component={ProfileInfo} />
+      </Switch>
     </Router>
   </Provider>
 )
