@@ -39,9 +39,6 @@ class Account extends Component {
         alert(err.message)
         return
       }
-
-      console.log(response.profile)
-
     })
   }
 
