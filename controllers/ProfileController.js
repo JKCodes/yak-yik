@@ -1,4 +1,5 @@
 var Profile = require('../models/Profile')
+var bcrypt = require('bcrypt')
 
 module.exports = {
   find: function(params, callback) {
@@ -24,6 +25,8 @@ module.exports = {
   },
 
   create: function(params, callback) {
+    params['password'] = bcrypt.hashSync(params.password, 10)
+
     Profile.create(params, function(err, profile) {
       if (err) {
         callback(err, null)
