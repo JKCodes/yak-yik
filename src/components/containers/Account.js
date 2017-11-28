@@ -34,11 +34,13 @@ class Account extends Component {
       return
     }
 
-    APIManager.post('/account/login', this.state.profile, (err, response) => {
+    APIManager.post('/account/login', this.state.profile, function(err, response) {
       if (err) {
         alert(err.message)
         return
       }
+
+      console.log(response.results)
 
     })
   }
@@ -56,7 +58,7 @@ class Account extends Component {
       return
     }
 
-    APIManager.post('/api/profile', this.state.profile, (err, response) => {
+    APIManager.post('/api/profile', this.state.profile, function(err, response) {
       if (err) {
         alert(err.message)
         return
