@@ -13,22 +13,6 @@ class Comments extends Component {
     }
   }
 
-  componentDidMount() {
-    // let zone = this.props.zones[this.props.index]
-    // if (zone == null) {
-    //   return
-    // }
-
-    // APIManager.get('/api/comment', {zone: zone._id}, (err, response) => {
-    //   if (err) {
-    //     alert('ERROR: ' + err.message)
-    //     return
-    //   }
-
-    //   this.props.commentsReceived(response.results)
-    // })
-  }
-
   componentDidUpdate() {
     let zone = this.props.zones[this.props.index]
     if (zone == null) {
@@ -63,7 +47,9 @@ class Comments extends Component {
         return
       }
     
-      this.props.commentCreated(response.result)
+      const comment = response.result
+
+      this.props.commentCreated(comment)
     })
   }
 
@@ -101,7 +87,6 @@ class Comments extends Component {
 
 const stateToProps = (state) => {
   return {
-    comments: state.comment.list,
     commentsMap: state.comment.map,
     index: state.zone.selectedZone,
     zones: state.zone.list,

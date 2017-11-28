@@ -2,21 +2,18 @@ import constants from '../constants'
 
 var initialState = {
   commentsLoaded: false,
-  list: [],
   map: {}
 }
 
 export default (state = initialState, action) => {
 
   let updated = Object.assign({}, state)
+  let updatedMap = Object.assign({}, updated.map)
 
   switch (action.type) {
 
     case constants.COMMENTS_RECEIVED:
-      updated['list'] = action.comments
-
-      let updatedMap = Object.assign({}, updated.map)
-      let zoneComments = (updatedMap[action.zone._id]) ? Object.assign([], zoneComments) : []
+      let zoneComments = (updatedMap[action.zone._id]) ? Object.assign([], updatedMap[action.zone._id]) : []
       
       action.comments.forEach((comment, i) => {
         zoneComments.push(comment)
@@ -29,9 +26,12 @@ export default (state = initialState, action) => {
       return updated
 
     case constants.COMMENT_CREATED:
-      let updatedList = Object.assign([], updated.list)
-      updatedList.push(action.comment)
-      updated['list'] = updatedList
+      let commentList = (updatedMap[action.comment.zone]) ? Object.assign([], updatedMap[action.comment.zone]) : []
+      
+      commentList.push(action.comment)
+
+      updatedMap[action.comment.zone] = commentList
+      updated['map'] = updatedMap
 
       return updated
 
