@@ -68,15 +68,22 @@ class Comments extends Component {
   }
 
   render() {
-    const commentList = this.props.comments.map((comment, i) => {
-      return (
-        <li key={i}><Comment currentComment={comment} /></li>
-      )
-    })
 
     const style = styles.comments;
     const selectedZone = this.props.zones[this.props.index]
-    const zoneName = (selectedZone == null) ? '' : selectedZone.name
+    let zoneName = null
+    let commentList = null
+    
+    if (selectedZone) {
+      zoneName = selectedZone.name
+
+      let zoneComments = this.props.commentsMap[selectedZone._id]
+      
+      if (zoneComments) {
+        commentList = zoneComments.map((comment, i) => <li key={i}><Comment currentComment={comment} /></li>)
+      }
+    }
+
     return (
       <div>
         <h2>{zoneName}</h2>
