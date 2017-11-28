@@ -33,6 +33,14 @@ class Account extends Component {
       alert('Please enter a password')
       return
     }
+
+    APIManager.post('/api/profile', this.state.profile, function(err, response) => {
+      if (err) {
+        alert(err.message)
+        return
+      }
+      
+    })
   }
 
   render() {
