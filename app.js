@@ -4,11 +4,10 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
 var index = require('./routes/index');
 var api = require('./routes/api');
 var account = require('./routes/account');
-
+var sessions = require('client-sessions');
 var mongoose = require('mongoose');
 require('dotenv').config();
 
@@ -34,6 +33,13 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(sessions({
+  cookieName: process.env.SESSION_COOKIE,
+  secret: process.env.SESSION_SECRET,
+  duration: 24 * 60 * 60 * 1000,
+  activeDuration:30 * 60 * 1000
+}))
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
