@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { APIManager } from '../../utils'
 
 class Account extends Component {
   constructor() {
