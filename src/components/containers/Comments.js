@@ -25,7 +25,12 @@ class Comments extends Component {
   }
 
   submitComment(comment) {
-    APIManager.post('/api/comment', comment, (err, response) => {
+    let updatedComment = Object.assign({}, comment)
+
+    let zone = this.props.zones[this.props.index]
+    updatedComment['zone'] = zone._id
+
+    APIManager.post('/api/comment', updatedComment, (err, response) => {
       if (err) {
         alert('ERROR: ' + err.message)
         return
