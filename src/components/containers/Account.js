@@ -58,7 +58,7 @@ class Account extends Component {
       return
     }
 
-    APIManager.post('/api/profile', this.state.profile, function(err, response) {
+    APIManager.post('/account/register', this.state.profile, function(err, response) {
       if (err) {
         alert(err.message)
         return
