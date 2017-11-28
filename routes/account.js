@@ -6,11 +6,20 @@ var bcrypt = require('bcrypt')
 router.get('/:action', function(req, res, next) {
 
   var action = req.params.action
-  if (action == 'login') {
+  if (action == 'currentuser') {
+
+    if (!req.session || !req.session.user) {
+      res.json({
+        confirmation: 'fail',
+        message: 'User not logged in'
+      })
+
+      return
+    }
 
     res.json({
       confirmation: 'success',
-      action: action
+      user: req.session.user
     })
   }
 })
@@ -51,6 +60,7 @@ router.post('/:action', function(req, res, next) {
         return
       }
 
+      req.session.user = profile._id
 
       res.json({
         confirmation: 'success',
