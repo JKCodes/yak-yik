@@ -52,10 +52,10 @@ router.post('/:action', function(req, res, next) {
       }
 
 
-      // res.json({
-      //   confirmation: 'success',
-      //   results: results
-      // })
+      res.json({
+        confirmation: 'success',
+        profile: profile
+      })
     })
 
   }

@@ -40,7 +40,7 @@ class Account extends Component {
         return
       }
 
-      console.log(response.results)
+      console.log(response.profile)
 
     })
   }
