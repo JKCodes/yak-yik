@@ -36,5 +36,12 @@ export default {
       type: constants.COMMENT_CREATED,
       comment: comment      
     }
+  },
+
+  currentUserReceived: (user) => {
+    return {
+      type: constants.CURRENT_USER_RECEIVED,
+      user: user
+    }
   }
 }

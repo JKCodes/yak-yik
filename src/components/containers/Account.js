@@ -1,15 +1,30 @@
 import React, { Component } from 'react'
 import { APIManager } from '../../utils'
+import actions from '../../actions'
+import { connect } from 'react-redux'
 
 class Account extends Component {
   constructor() {
     super()
     this.state = {
+      user: {},
       profile: {
         username: '',
         password: ''
       }
     }
+  }
+
+  componentDidMount() {
+    APIManager.get('/account/currentuser', null, (err, response) => {
+      if (err) {
+        alert(err)
+        return
+      }
+
+      
+      this.props.currentUserReceived(response.user)
+    })
   }
 
   updateProfile(event) {
@@ -80,4 +95,16 @@ class Account extends Component {
   }
 }
 
-export default Account
+const stateToProps = (state) => {
+  return {
+    user: state.account.user
+  }
+} 
+
+const dispatchToProps = (dispatch) => {
+  return {
+    currentUserReceived: (user) => dispatch(actions.currentUserReceived(user))
+  }
+}
+
+export default connect(stateToProps, dispatchToProps)(Account)
