@@ -18,7 +18,7 @@ class Account extends Component {
   componentDidMount() {
     APIManager.get('/account/currentuser', null, (err, response) => {
       if (err) {
-        alert(err)
+        console.log(err.message)
         return
       }
 
@@ -80,16 +80,28 @@ class Account extends Component {
   }
 
   render() {
+    let content = null
+
+    if (!this.props.user) {
+      content = (
+        <div>
+          <h2>Log In</h2>
+          <input id="username" onChange={this.updateProfile.bind(this)} type="text" placeholder="username" /><br />
+          <input id="password" onChange={this.updateProfile.bind(this)} type="password" placeholder="password" /><br />
+          <button onClick={this.login.bind(this)}>Log In</button>
+          <h2>Sign Up</h2>
+          <input id="username" onChange={this.updateProfile.bind(this)} type="text" placeholder="username" /><br />
+          <input id="password" onChange={this.updateProfile.bind(this)} type="password" placeholder="password" /><br />
+          <button onClick={this.signup.bind(this)}>Sign Up</button>
+        </div>
+      )
+    } else {
+      content = <h2>Welcome {this.props.user.username} </h2>
+    }
+
     return (
       <div>
-        <h2>Log In</h2>
-        <input id="username" onChange={this.updateProfile.bind(this)} type="text" placeholder="username" /><br />
-        <input id="password" onChange={this.updateProfile.bind(this)} type="password" placeholder="password" /><br />
-        <button onClick={this.login.bind(this)}>Log In</button>
-        <h2>Sign Up</h2>
-        <input id="username" onChange={this.updateProfile.bind(this)} type="text" placeholder="username" /><br />
-        <input id="password" onChange={this.updateProfile.bind(this)} type="password" placeholder="password" /><br />
-        <button onClick={this.signup.bind(this)}>Sign Up</button>
+        { content }
       </div>
     )
   }
