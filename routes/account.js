@@ -6,6 +6,15 @@ var bcrypt = require('bcrypt')
 router.get('/:action', function(req, res, next) {
 
   var action = req.params.action
+  if (action == 'logout') {
+    req.session.reset()
+
+    res.json({
+      confirmation: 'success',
+      message: "Logout Successful"
+    })
+  }
+
   if (action == 'currentuser') {
 
     if (!req.session || !req.session.user) {
