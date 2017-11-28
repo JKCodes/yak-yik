@@ -9,16 +9,45 @@ class Comments extends Component {
   constructor() {
     super()
     this.state = {
-
+      commentsLoaded: false
     }
   }
 
   componentDidMount() {
-    APIManager.get('/api/comment', null, (err, response) => {
+    // let zone = this.props.zones[this.props.index]
+    // if (zone == null) {
+    //   return
+    // }
+
+    // APIManager.get('/api/comment', {zone: zone._id}, (err, response) => {
+    //   if (err) {
+    //     alert('ERROR: ' + err.message)
+    //     return
+    //   }
+
+    //   this.props.commentsReceived(response.results)
+    // })
+  }
+
+  componentDidUpdate() {
+    let zone = this.props.zones[this.props.index]
+    if (zone == null) {
+      return
+    }
+
+    if (this.state.commentsLoaded) {
+      return
+    }
+
+    APIManager.get('/api/comment', {zone: zone._id}, (err, response) => {
       if (err) {
         alert('ERROR: ' + err.message)
         return
       }
+
+      this.setState({
+        commentsLoaded: true
+      })
 
       this.props.commentsReceived(response.results)
     })
