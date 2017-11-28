@@ -21,6 +21,28 @@ class Account extends Component {
     })
   }
 
+  login(event) {
+    event.preventDefault()
+
+    if (this.state.profile.username.length == 0) {
+      alert('Please enter your username')
+      return
+    }
+
+    if (this.state.profile.password.length == 0) {
+      alert('Please enter a password')
+      return
+    }
+
+    APIManager.post('/account/login', this.state.profile, (err, response) => {
+      if (err) {
+        alert(err.message)
+        return
+      }
+
+    })
+  }
+
   signup(event) {
     event.preventDefault()
 
@@ -34,12 +56,12 @@ class Account extends Component {
       return
     }
 
-    APIManager.post('/api/profile', this.state.profile, function(err, response) => {
+    APIManager.post('/api/profile', this.state.profile, (err, response) => {
       if (err) {
         alert(err.message)
         return
       }
-      
+
     })
   }
 
@@ -49,7 +71,7 @@ class Account extends Component {
         <h2>Log In</h2>
         <input id="username" onChange={this.updateProfile.bind(this)} type="text" placeholder="username" /><br />
         <input id="password" onChange={this.updateProfile.bind(this)} type="password" placeholder="password" /><br />
-        <button>Log In</button>
+        <button onClick={this.login.bind(this)}>Log In</button>
         <h2>Sign Up</h2>
         <input id="username" onChange={this.updateProfile.bind(this)} type="text" placeholder="username" /><br />
         <input id="password" onChange={this.updateProfile.bind(this)} type="password" placeholder="password" /><br />
