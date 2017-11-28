@@ -16,14 +16,8 @@ export default (state = initialState, action) => {
       updated['list'] = action.comments
 
       let updatedMap = Object.assign({}, updated.map)
-      let zoneComments = updatedMap[action.zone._id]
+      let zoneComments = (updatedMap[action.zone._id]) ? Object.assign([], zoneComments) : []
       
-      if (!zoneComments) {
-        zoneComments = []
-      } else {
-        zoneComments = Object.assign([], zoneComments)
-      }
-
       action.comments.forEach((comment, i) => {
         zoneComments.push(comment)
       })
