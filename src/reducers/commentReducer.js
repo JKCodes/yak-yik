@@ -1,6 +1,7 @@
 import constants from '../constants'
 
 var initialState = {
+  commentsLoaded: false,
   list: []
 }
 
@@ -11,6 +12,7 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case constants.COMMENTS_RECEIVED:
       updated['list'] = action.comments
+      updated['commentsLoaded'] = true
 
       return updated
 
@@ -20,6 +22,12 @@ export default (state = initialState, action) => {
       updated['list'] = updatedList
 
       return updated
+
+    case constants.SELECT_ZONE:
+      updated['commentsLoaded'] = false
+
+      return updated
+
     default:
       return state
   }

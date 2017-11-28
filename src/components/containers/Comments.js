@@ -9,7 +9,7 @@ class Comments extends Component {
   constructor() {
     super()
     this.state = {
-      commentsLoaded: false
+
     }
   }
 
@@ -35,7 +35,7 @@ class Comments extends Component {
       return
     }
 
-    if (this.state.commentsLoaded) {
+    if (this.props.commentsLoaded) {
       return
     }
 
@@ -44,10 +44,6 @@ class Comments extends Component {
         alert('ERROR: ' + err.message)
         return
       }
-
-      this.setState({
-        commentsLoaded: true
-      })
 
       this.props.commentsReceived(response.results)
     })
@@ -98,7 +94,8 @@ const stateToProps = (state) => {
   return {
     comments: state.comment.list,
     index: state.zone.selectedZone,
-    zones: state.zone.list
+    zones: state.zone.list,
+    commentsLoaded: state.comment.commentsLoaded
   }
 } 
 
