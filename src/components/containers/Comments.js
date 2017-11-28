@@ -35,7 +35,8 @@ class Comments extends Component {
       return
     }
 
-    if (this.props.commentsLoaded) {
+    let commentsArray = this.props.commentsMap[zone._id]
+    if (commentsArray) {
       return
     }
 
@@ -45,7 +46,8 @@ class Comments extends Component {
         return
       }
 
-      this.props.commentsReceived(response.results)
+      let comments = response.results
+      this.props.commentsReceived(comments, zone)
     })
   }
 
@@ -93,6 +95,7 @@ class Comments extends Component {
 const stateToProps = (state) => {
   return {
     comments: state.comment.list,
+    commentsMap: state.comment.map,
     index: state.zone.selectedZone,
     zones: state.zone.list,
     commentsLoaded: state.comment.commentsLoaded
@@ -101,7 +104,7 @@ const stateToProps = (state) => {
 
 const dispatchToProps = (dispatch) => {
   return {
-    commentsReceived: (comments) => dispatch(actions.commentsReceived(comments)),
+    commentsReceived: (comments, zone) => dispatch(actions.commentsReceived(comments, zone)),
     commentCreated: (comment) => dispatch(actions.commentCreated(comment))
   }
 }

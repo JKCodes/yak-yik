@@ -23,10 +23,11 @@ export default {
     }
   },
 
-  commentsReceived: (comments) => {
+  commentsReceived: (comments, zone) => {
     return  {
       type: constants.COMMENTS_RECEIVED,
-      comments: comments      
+      comments: comments,
+      zone: zone
     }
   },
 
