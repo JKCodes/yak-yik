@@ -49,11 +49,13 @@ class Account extends Component {
       return
     }
 
-    APIManager.post('/account/login', this.state.profile, function(err, response) {
+    APIManager.post('/account/login', this.state.profile, (err, response) => {
       if (err) {
         alert(err.message)
         return
       }
+
+      this.props.currentUserReceived(response.user)
     })
   }
 
@@ -70,7 +72,7 @@ class Account extends Component {
       return
     }
 
-    APIManager.post('/account/register', this.state.profile, function(err, response) {
+    APIManager.post('/account/register', this.state.profile, (err, response) => {
       if (err) {
         alert(err.message)
         return
