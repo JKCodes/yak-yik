@@ -78,6 +78,20 @@ class Account extends Component {
         return
       }
 
+      this.props.currentUserReceived(response.user)
+    })
+  }
+
+  logout(event) {
+    event.preventDefault()
+
+    APIManager.get('/account/logout', null, (err, response) => {
+      if (err) {
+        alert(err.message)
+        return
+      }
+
+      this.props.currentUserReceived(null)
     })
   }
 
@@ -98,7 +112,12 @@ class Account extends Component {
         </div>
       )
     } else {
-      content = <h2>Welcome {this.props.user.username} </h2>
+      content = (
+        <div> 
+          <h2>Welcome {this.props.user.username} </h2>
+          <button onClick={this.logout.bind(this)}>Log Out</button>  
+        </div>
+      )
     }
 
     return (
