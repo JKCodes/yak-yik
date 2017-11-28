@@ -5,7 +5,6 @@ class CreateComment extends Component {
     super()
     this.state = {
       comment: {
-        username: '',
         body: ''
       }
     }
@@ -28,7 +27,6 @@ class CreateComment extends Component {
     return (
       <div>
         <h3>Create A Comment</h3>
-        <input id="username" onChange={this.updateComment.bind(this)} className="form-control" type="text" placeholder="Username" /><br />
         <input id="body" onChange={this.updateComment.bind(this)}className="form-control" type="text" placeholder="Comment" /><br />
         <button onClick={this.submitComment.bind(this)} className="btn btn-info" >Submit Comment</button>
       </div>
