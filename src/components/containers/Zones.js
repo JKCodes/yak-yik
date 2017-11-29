@@ -13,14 +13,7 @@ class Zones extends Component {
   }
 
   componentDidMount() {
-    APIManager.get('/api/zone', null, (err, response) => {
-      if (err) {
-        alert('ERROR: ' + err.message)
-        return
-      }
-
-      this.props.zonesReceived(response.results)
-    })
+    this.props.fetchZones(null)
   }
 
   submitZone(zone) {
@@ -54,13 +47,24 @@ class Zones extends Component {
       )
     })
 
+    let content = null
+    if (this.props.appStatus == 'loading') {
+      content = 'Loading Zones...'
+    } else {
+      content = (
+        <div>
+          <ol>
+            {listItems}
+          </ol>
+
+          <CreateZone onCreate={this.submitZone.bind(this)}/>
+        </div>
+      )
+    }
+
     return (
       <div>
-        <ol>
-          {listItems}
-        </ol>
-
-        <CreateZone onCreate={this.submitZone.bind(this)}/>
+        { content }
       </div>
     )
   }
@@ -69,13 +73,14 @@ class Zones extends Component {
 const stateToProps = (state) => {
   return {
     list: state.zone.list,
-    selected: state.zone.selectedZone
+    selected: state.zone.selectedZone,
+    appStatus: state.zone.appStatus
   }
 } 
 
 const dispatchToProps = (dispatch) => {
   return {
-    zonesReceived: (zones) => dispatch(actions.zonesReceived(zones)),
+    fetchZones: (params) => dispatch(actions.fetchZones(params)),
     zoneCreated: (zone) => dispatch(actions.zoneCreated(zone)),
     selectZone: (index) => dispatch(actions.selectZone(index))
   }

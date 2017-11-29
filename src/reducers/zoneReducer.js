@@ -1,6 +1,7 @@
 import constants from '../constants'
 
 var initialState = {
+  appStatus: 'ready',
   selectedZone: 0,
   list: []
 }
@@ -10,9 +11,14 @@ export default (state = initialState, action) => {
   var updated = Object.assign({}, state)
 
   switch (action.type) {
+    case constants.APPLICATION_STATE:
+      updated['appStatus'] = action.status
+      return updated
+
     case constants.ZONES_RECEIVED:
       updated['list'] = action.zones
-
+      updated['appStatus'] = 'ready'
+      
       return updated
 
     case constants.ZONE_CREATED:

@@ -2,6 +2,27 @@ import constants from '../constants'
 import { APIManager } from '../utils'
 
 export default {
+  fetchZones: (params) => {
+    return (dispatch) => {
+      dispatch({
+        type: constants.APPLICATION_STATE,
+        status: 'loading'
+      })
+
+      APIManager.get('/api/zone', params, (err, response) => {
+        if (err) {
+          alert(err)
+          return
+        }
+
+        dispatch({
+          type: constants.ZONES_RECEIVED,
+          zones: response.results
+        })
+      })
+    }
+  },
+
   fetchProfile: (params) => {
     return (dispatch) => {
       dispatch({
