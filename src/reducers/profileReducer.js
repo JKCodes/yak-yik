@@ -1,20 +1,20 @@
 import constants from '../constants'
 
 var initialState = {
-  list: []
+  map: {}
 }
 
 export default (state = initialState, action) => {
 
   var updated = Object.assign({}, state)
-  var updatedList = Object.assign([], updated.list)
 
   switch (action.type) {
     
     case constants.PROFILE_RECEIVED:
-      updatedList.push(action.profile)
-      updated['list'] = updatedList
-      
+      let updatedMap = Object.assign({}, updated.map)
+      updatedMap[action.profile.username] = action.profile
+      updated['map'] = updatedMap
+
       return updated
     
     default:

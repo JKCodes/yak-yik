@@ -7,36 +7,20 @@ class Profile extends Component {
   constructor(){
     super()
     this.state = {
-      profile: null
+
     }
   }
 
   componentDidMount(){
-    APIManager.get('/api/profile', {username: this.props.username}, (err, response) => {
-      if (err){
-        alert(err)
-        return
-      }
+    const profile = this.props.profiles[this.props.username]
+    if (profile) 
+      return
 
-      if (response.results.length == 0){
-        alert('Profile Not Found.')
-        return
-      }
-
-      const profile = response.results[0]
-
-      this.props.profileReceived(profile)
-    })
+    this.props.fetchProfile({username: this.props.username})
   }
 
   render(){
-    let profile = null
-    for (var i=0; i<this.props.profiles.length; i++) {
-      if (this.props.profiles[i].username == this.props.username) {
-        profile = this.props.profiles[i]
-        break
-      }
-    }
+    let profile = this.props.profiles[this.props.username]
 
     let header = null
     if (profile) {
@@ -64,13 +48,13 @@ class Profile extends Component {
 
 const stateToProps = (state) => {
   return {
-    profiles: state.profile.list
+    profiles: state.profile.map
   }
 } 
 
 const dispatchToProps = (dispatch) => {
   return {
-    profileReceived: (profile) => dispatch(actions.profileReceived(profile))
+    fetchProfile: (params) => dispatch(actions.fetchProfile(params))
   }
 }
 
