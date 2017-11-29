@@ -10,7 +10,7 @@ class ProfileInfo extends Component {
   render() {
     return (
       <div>
-        <Profile username={this.props.location.state.username} />
+        <Profile username={this.props.match.params.username} />
       </div>
     )
   }

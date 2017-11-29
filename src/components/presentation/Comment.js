@@ -11,7 +11,7 @@ class Comment extends Component {
       <div>
         <p style={style.commentBody}>{this.props.currentComment.body}</p>
         <span style={style.commentData}>
-          <Link to={{pathname: `/profile/${currentComment.username}`, state: {username: this.props.currentComment.username}}}>{this.props.currentComment.username}</Link>
+          <Link to={`/profile/${currentComment.username}`}>{this.props.currentComment.username}</Link>
         </span>
         <span style={style.commentBar}>|</span>
         <span style={style.commentData}>{currentComment.timestamp}</span>
