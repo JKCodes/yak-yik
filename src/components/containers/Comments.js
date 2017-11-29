@@ -14,12 +14,17 @@ class Comments extends Component {
 
   componentDidUpdate() {
     let zone = this.props.zones[this.props.index]
-    if (zone == null) {
+    if (!zone) {
       return
     }
 
     let commentsArray = this.props.commentsMap[zone._id]
     if (commentsArray) {
+      return
+    }
+
+    // this prevents multiple consecutive API calls
+    if (this.props.appStatus == 'loading') {
       return
     }
 
@@ -46,7 +51,6 @@ class Comments extends Component {
   }
 
   render() {
-    console.log("HIHI")
     const style = styles.comments;
     const selectedZone = this.props.zones[this.props.index]
     let zoneName = null

@@ -102,8 +102,6 @@ export default {
           return
         }
         
-        console.log("HI")
-
         let comments = response.results
 
         dispatch({
