@@ -4,6 +4,11 @@ import { APIManager } from '../utils'
 export default {
   fetchProfile: (params) => {
     return (dispatch) => {
+      dispatch({
+        type: constants.APPLICATION_STATE,
+        status: 'loading'
+      })
+
       APIManager.get('/api/profile', params, (err, response) => {
         if (err) {
           alert(err)

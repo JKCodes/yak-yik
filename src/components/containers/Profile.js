@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { APIManager } from '../../utils'
 import { connect } from 'react-redux'
 import actions from '../../actions'
 
@@ -35,10 +34,11 @@ class Profile extends Component {
       )
     }
 
+    const content = (this.props.appStatus == 'loading') ? 'Loading...' : header
+
     return (
       <div>
-        {header}
-        
+        {content}
       </div>
     )
   }
@@ -48,7 +48,8 @@ class Profile extends Component {
 
 const stateToProps = (state) => {
   return {
-    profiles: state.profile.map
+    profiles: state.profile.map,
+    appStatus: state.profile.appStatus
   }
 } 
 
