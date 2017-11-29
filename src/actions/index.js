@@ -2,6 +2,26 @@ import constants from '../constants'
 import { APIManager } from '../utils'
 
 export default {
+  updateProfile: (profile, updated) => {
+    return (dispatch) => {
+
+      const endpoint = `/api/profile/${profile._id}`
+      APIManager.put(endpoint, updated, (err, response) => {
+        if (err) {
+          alert(err)
+          return
+        }
+
+        const updatedProfile = response.result
+        dispatch({
+          type: constants.CURRENT_USER_UPDATED,
+          profile: updatedProfile          
+        })
+        console.log(response.result)
+      })
+    }
+  },
+
   login: (params) => {
     return (dispatch) => {
       dispatch({
