@@ -29,7 +29,19 @@ class Profile extends Component {
   }
 
   render(){
-    const header = (this.state.profile == null) ? null : <h3>{this.state.profile._id}</h3>
+    const profile = this.state.profile
+    let header = null
+    if (profile) {
+      header = (
+        <div>
+          <h3>{profile.username}</h3>
+          <p>
+            gender: {profile.gender}<br />
+            city: {profile.city}
+          </p>
+        </div>
+      )
+    }
 
     return (
       <div>
