@@ -25,6 +25,7 @@
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "serve-favicon": "~2.4.5",
+    "sha1": "^1.1.1",
     "superagent": "^3.8.1"
   },
   "devDependencies": {

@@ -70,6 +70,24 @@ export default {
 
   delete: () => {
 
+  },
+
+  upload: (endpoint, file, params, callback) => {
+    let uploadRequest = superagent.post(endpoint)
+
+    uploadRequest.attach('file', file)
+    Object.keys(params).forEach((key) => {
+      uploadRequest.field(key, params[key])
+    })
+
+    uploadRequest.end((err, response) => {
+      if (err) {
+        callback(err, null)
+        return
+      }
+
+      callback(null, response)
+    })
   }
 
 }

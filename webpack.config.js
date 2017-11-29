@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
+require('dotenv').config();
 
 module.exports = {
   
@@ -11,6 +12,14 @@ module.exports = {
     sourceMapFilename: 'public/dist/bundle.map'
   },
   devtool: '#source-map',
+  plugins: [
+    new webpack.EnvironmentPlugin([
+      'CLOUDINARY_CLOUDNAME',
+      'CLOUDINARY_API_KEY',
+      'CLOUDINARY_API_SECRET',
+      'CLOUDINARY_UPLOAD_PRESET'
+    ])
+  ],
   module: {
     loaders: [
       {
