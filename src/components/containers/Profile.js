@@ -30,7 +30,14 @@ class Profile extends Component {
   }
 
   render(){
-    const profile = this.state.profile
+    let profile = null
+    for (var i=0; i<this.props.profiles.length; i++) {
+      if (this.props.profiles[i].username == this.props.username) {
+        profile = this.props.profiles[i]
+        break
+      }
+    }
+
     let header = null
     if (profile) {
       header = (
