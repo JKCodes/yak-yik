@@ -46,6 +46,24 @@ export default (state = initialState, action) => {
 
       return updated
 
+    case constants.COMMENT_UPDATED:
+      let list = updatedMap[action.comment.zone]
+      let newList = []
+
+      list.forEach((comment, i) => {
+        if (comment._id == action.comment._id) {
+          newList.push(action.comment)
+        } else {
+          newList.push(comment)
+        }
+      })
+
+      updatedMap[action.comment.zone] = newList
+      updated['map'] = updatedMap
+      updated['appStatus'] = 'ready'
+
+      return updated
+
     case constants.SELECT_ZONE:
       updated['commentsLoaded'] = false
 

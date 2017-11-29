@@ -2,7 +2,7 @@ var Comment = require('../models/Comment')
 
 module.exports = {
   find: function(params, callback) {
-    Comment.find(params, null, {sort: {timestamp: -1}}, function(err, comments) {
+    Comment.find(params, null, {sort: {timestamp: 1}}, function(err, comments) {
       if (err) {
         callback(err, null)
         return

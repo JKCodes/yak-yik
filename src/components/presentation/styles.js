@@ -18,6 +18,13 @@ export default {
     icon: {
       borderRadius:16,
       marginRight:6
+    },
+    textarea: {
+      width: '100%',
+      resize: 'none'
+    },
+    editButton: {
+      marginLeft: 12
     }
   },
   zone: {

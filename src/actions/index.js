@@ -238,5 +238,30 @@ export default {
         })
       })
     }
+  },
+
+  updateComment: (comment, params) => {
+    return (dispatch) => {
+      const endpoint = `/api/comment/${comment._id}`
+      dispatch({
+        type: constants.APPLICATION_STATE,
+        status: 'loading',
+        reducer: 'comment'
+      })
+
+      APIManager.put(endpoint, params, (err, response) => {
+        if (err) {
+          alert('ERROR: ' + err.message)
+          return
+        }
+      
+        const updatedComment = response.result
+
+        dispatch({
+          type: constants.COMMENT_UPDATED,
+          comment: updatedComment      
+        })
+      })
+    }
   }
 }

@@ -50,8 +50,13 @@ class Comments extends Component {
     this.props.commentCreated(updatedComment)
   }
 
+  updateComment(comment, updatedBody) {
+    this.props.updateComment(comment, {body: updatedBody})
+  }
+
   render() {
     const style = styles.comments;
+    const currentUser = this.props.user // null if not logged in
     const selectedZone = this.props.zones[this.props.index]
     let zoneName = null
     let commentList = null
@@ -62,7 +67,7 @@ class Comments extends Component {
       let zoneComments = this.props.commentsMap[selectedZone._id]
       
       if (zoneComments) {
-        commentList = zoneComments.map((comment, i) => <li key={i}><Comment currentComment={comment} /></li>)
+        commentList = zoneComments.map((comment, i) => <li key={i}><Comment currentComment={comment} onUpdate={this.updateComment.bind(this)} isEditable={(currentUser && currentUser._id == comment.author.id)}/></li>)
       }
     }
 
@@ -105,6 +110,7 @@ const stateToProps = (state) => {
 
 const dispatchToProps = (dispatch) => {
   return {
+    updateComment: (comment, params) => dispatch(actions.updateComment(comment, params)),
     fetchComments: (params, zone) => dispatch(actions.fetchComments(params, zone)),
     commentCreated: (params) => dispatch(actions.commentCreated(params))
   }
