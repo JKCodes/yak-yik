@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Zone, CreateZone } from '../presentation';
-import { APIManager } from '../../utils';
 import actions from '../../actions';
 import { connect } from 'react-redux';
 
@@ -17,14 +16,7 @@ class Zones extends Component {
   }
 
   submitZone(zone) {
-    APIManager.post('/api/zone', zone, (err, response) => {
-      if (err) {
-        alert('ERROR: ' + err.message)
-        return
-      }
-
-      this.props.zoneCreated(response.result)
-    })
+    this.props.zoneCreated(zone)
   }
 
   selectZone(index) {

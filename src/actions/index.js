@@ -53,17 +53,25 @@ export default {
     }
   },
 
-  zonesReceived: (zones) => {
-    return  {
-      type: constants.ZONES_RECEIVED,
-      zones: zones      
-    }
-  },
-
   zoneCreated: (zone) => {
-    return  {
-      type: constants.ZONE_CREATED,
-      zone: zone      
+    return (dispatch) => {
+      dispatch({
+        type: constants.APPLICATION_STATE,
+        status: 'loading',
+        reducer: 'profile'
+      })
+
+      APIManager.post('/api/zone', zone, (err, response) => {
+        if (err) {
+          alert('ERROR: ' + err.message)
+          return
+        }
+
+        dispatch({
+          type: constants.ZONE_CREATED,
+          zone: response.result
+        })
+      })
     }
   },  
 
