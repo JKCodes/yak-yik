@@ -12,6 +12,9 @@ export default (state = initialState, action) => {
   switch (action.type) {
 
     case constants.APPLICATION_STATE:
+      if (action.reducer != 'profile')
+        return updated
+
       updated['appStatus'] = action.status
       return updated
     
