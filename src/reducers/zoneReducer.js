@@ -12,13 +12,17 @@ export default (state = initialState, action) => {
 
   switch (action.type) {
     case constants.APPLICATION_STATE:
+      if (action.reducer != 'zone') {
+        return updated
+      }
+
       updated['appStatus'] = action.status
       return updated
 
     case constants.ZONES_RECEIVED:
       updated['list'] = action.zones
       updated['appStatus'] = 'ready'
-      
+
       return updated
 
     case constants.ZONE_CREATED:
