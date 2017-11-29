@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
+import { Profile } from '../containers'
 
 class ProfileInfo extends Component {
+
+  componentDidMount() {
+
+  }
+
   render() {
     return (
       <div>
-          ProfileInfo
+        <Profile username={this.props.location.state.username} />
       </div>
     )
   }
