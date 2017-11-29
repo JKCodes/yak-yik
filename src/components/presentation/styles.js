@@ -14,6 +14,10 @@ export default {
       fontWeight:200,
       marginLeft:12,
       marginRight:12
+    },
+    icon: {
+      borderRadius:16,
+      marginRight:6
     }
   },
   zone: {

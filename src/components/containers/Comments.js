@@ -36,13 +36,17 @@ class Comments extends Component {
 
     let zone = this.props.zones[this.props.index]
     updatedComment['zone'] = zone._id
-    updatedComment['username'] = this.props.user.username
+    updatedComment['author'] = {
+      id: this.props.user._id,
+      username: this.props.user.username,
+      image: this.props.user.image
+    }
 
     this.props.commentCreated(updatedComment)
   }
 
   render() {
-
+    console.log("HIHI")
     const style = styles.comments;
     const selectedZone = this.props.zones[this.props.index]
     let zoneName = null
