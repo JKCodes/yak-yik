@@ -2,7 +2,8 @@ import constants from '../constants'
 
 var initialState = {
   commentsLoaded: false,
-  map: {}
+  map: {},
+  appStatus: 'ready'
 }
 
 export default (state = initialState, action) => {
@@ -12,9 +13,17 @@ export default (state = initialState, action) => {
 
   switch (action.type) {
 
+    case constants.APPLICATION_STATE:
+      if (action.reducer != 'comment') {
+        return updated
+      }
+
+      updated['appStatus'] = action.status
+      return updated
+
     case constants.COMMENTS_RECEIVED:
       let zoneComments = (updatedMap[action.zone._id]) ? Object.assign([], updatedMap[action.zone._id]) : []
-      
+
       action.comments.forEach((comment, i) => {
         zoneComments.push(comment)
       })
@@ -22,6 +31,7 @@ export default (state = initialState, action) => {
       updatedMap[action.zone._id] = zoneComments
       updated['map'] = updatedMap
       updated['commentsLoaded'] = true
+      updated['appStatus'] = 'ready'
 
       return updated
 
@@ -32,6 +42,7 @@ export default (state = initialState, action) => {
 
       updatedMap[action.comment.zone] = commentList
       updated['map'] = updatedMap
+      updated['appStatus'] = 'ready'
 
       return updated
 

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styles from './styles';
-import { APIManager } from '../../utils';
 import { Comment, CreateComment } from '../presentation';
 import actions from '../../actions';
 import { connect } from 'react-redux';
@@ -24,15 +23,7 @@ class Comments extends Component {
       return
     }
 
-    APIManager.get('/api/comment', {zone: zone._id}, (err, response) => {
-      if (err) {
-        alert('ERROR: ' + err.message)
-        return
-      }
-
-      let comments = response.results
-      this.props.commentsReceived(comments, zone)
-    })
+    this.props.fetchComments({zone: zone._id}, zone)
   }
 
   submitComment(comment) {
@@ -47,16 +38,7 @@ class Comments extends Component {
     updatedComment['zone'] = zone._id
     updatedComment['username'] = this.props.user.username
 
-    APIManager.post('/api/comment', updatedComment, (err, response) => {
-      if (err) {
-        alert('ERROR: ' + err.message)
-        return
-      }
-    
-      const comment = response.result
-
-      this.props.commentCreated(comment)
-    })
+    this.props.commentCreated(updatedComment)
   }
 
   render() {
@@ -76,16 +58,27 @@ class Comments extends Component {
       }
     }
 
+    let content = null
+    if (this.props.appStatus == 'loading') {
+      content = "Loading Comments..."
+    } else {
+      content = (
+        <div>
+          <h2>{zoneName}</h2>
+          <div style={style.commentsBox}>
+            <ul style={style.commentList}>
+              { commentList }
+            </ul>
+
+            <CreateComment onCreate={this.submitComment.bind(this)} />
+          </div>
+        </div>
+      )
+    }
+
     return (
       <div>
-        <h2>{zoneName}</h2>
-        <div style={style.commentsBox}>
-          <ul style={style.commentList}>
-            { commentList }
-          </ul>
-
-          <CreateComment onCreate={this.submitComment.bind(this)} />
-        </div>
+        { content }
       </div>
     )
   }
@@ -97,14 +90,15 @@ const stateToProps = (state) => {
     index: state.zone.selectedZone,
     zones: state.zone.list,
     commentsLoaded: state.comment.commentsLoaded,
-    user: state.account.user
+    user: state.account.user,
+    appStatus: state.comment.appStatus
   }
 } 
 
 const dispatchToProps = (dispatch) => {
   return {
-    commentsReceived: (comments, zone) => dispatch(actions.commentsReceived(comments, zone)),
-    commentCreated: (comment) => dispatch(actions.commentCreated(comment))
+    fetchComments: (params, zone) => dispatch(actions.fetchComments(params, zone)),
+    commentCreated: (params) => dispatch(actions.commentCreated(params))
   }
 }
 

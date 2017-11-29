@@ -15,7 +15,7 @@ export default {
           alert(err.message)
           return
         }
-        
+
         dispatch({
           type: constants.CURRENT_USER_RECEIVED,
           user: response.user
@@ -37,7 +37,7 @@ export default {
           alert(err.message)
           return
         }
-        
+
         dispatch({
           type: constants.CURRENT_USER_RECEIVED,
           user: response.user
@@ -59,10 +59,35 @@ export default {
           alert(err.message)
           return
         }
-        
+
         dispatch({
           type: constants.CURRENT_USER_RECEIVED,
           user: response.user
+        })
+      })
+    }
+  },
+
+  fetchComments: (params, zone) => {
+    return (dispatch) => {
+      dispatch({
+        type: constants.APPLICATION_STATE,
+        status: 'loading',
+        reducer: 'comment'
+      })
+
+      APIManager.get('/api/comment', params, (err, response) => {
+        if (err) {
+          alert('ERROR: ' + err.message)
+          return
+        }
+        
+        let comments = response.results
+
+        dispatch({
+          type: constants.COMMENTS_RECEIVED,
+          comments: comments,
+          zone: zone
         })
       })
     }
@@ -78,7 +103,8 @@ export default {
 
       APIManager.get('/account/currentuser', params, (err, response) => {
         if (err) {
-          console.log(err.message)
+          alert(err.message)
+
           return
         }
 
@@ -170,18 +196,27 @@ export default {
     }
   },
 
-  commentsReceived: (comments, zone) => {
-    return  {
-      type: constants.COMMENTS_RECEIVED,
-      comments: comments,
-      zone: zone
-    }
-  },
+  commentCreated: (params) => {
+    return (dispatch) => {
+      dispatch({
+        type: constants.APPLICATION_STATE,
+        status: 'loading',
+        reducer: 'comment'
+      })
 
-  commentCreated: (comment) => {
-    return  {
-      type: constants.COMMENT_CREATED,
-      comment: comment      
+      APIManager.post('/api/comment', params, (err, response) => {
+        if (err) {
+          alert('ERROR: ' + err.message)
+          return
+        }
+      
+        const comment = response.result
+
+        dispatch({
+          type: constants.COMMENT_CREATED,
+          comment: comment      
+        })
+      })
     }
   }
 }
