@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import actions from '../../actions'
 import Dropzone from 'react-dropzone'
-import { APIManager } from '../../utils'
+import { APIManager, ImageHelper } from '../../utils'
 import sha1 from 'sha1'
 
 class CurrentUser extends Component {
@@ -71,7 +71,7 @@ class CurrentUser extends Component {
 
   render() {
     const currentUser = this.props.user
-    const image = (!this.state.updated.image) ? '' : this.state.updated.image.replace('upload', 'upload/c_thumb,h_150,w_150,x_0,y_0') // thumbnail rendering instead of the whole image
+    const image = (!this.state.updated.image) ? '' : ImageHelper.thumbnail(this.state.updated.image, 150)
 
     return (
       <div>
