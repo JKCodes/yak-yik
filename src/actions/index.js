@@ -13,11 +13,11 @@ export default {
         }
 
         const updatedProfile = response.result
+        
         dispatch({
           type: constants.CURRENT_USER_UPDATED,
           profile: updatedProfile          
         })
-        console.log(response.result)
       })
     }
   },
