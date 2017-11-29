@@ -24,6 +24,14 @@ export default (state = initialState, action) => {
 
       return updated
 
+    case constants.CURRENT_USER_UPDATED:
+      if (action.profile._id != updated.user._id) {
+        return updated
+      }
+
+      updated['user'] = action.profile
+      return updated
+
     default:
       return state
   }
