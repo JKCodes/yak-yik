@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { APIManager } from '../../utils'
 import actions from '../../actions'
 import { connect } from 'react-redux'
 
@@ -18,15 +17,7 @@ class Account extends Component {
   }
 
   componentDidMount() {
-    APIManager.get('/account/currentuser', null, (err, response) => {
-      if (err) {
-        console.log(err.message)
-        return
-      }
-
-      
-      this.props.currentUserReceived(response.user)
-    })
+    this.props.fetchCurrentUser(null)
   }
 
   updateProfile(event) {
@@ -51,14 +42,7 @@ class Account extends Component {
       return
     }
 
-    APIManager.post('/account/login', this.state.profile, (err, response) => {
-      if (err) {
-        alert(err.message)
-        return
-      }
-
-      this.props.currentUserReceived(response.user)
-    })
+    this.props.login(this.state.profile)
   }
 
   signup(event) {
@@ -74,33 +58,21 @@ class Account extends Component {
       return
     }
 
-    APIManager.post('/account/register', this.state.profile, (err, response) => {
-      if (err) {
-        alert(err.message)
-        return
-      }
-
-      this.props.currentUserReceived(response.user)
-    })
+    this.props.register(this.state.profile)
   }
 
   logout(event) {
     event.preventDefault()
 
-    APIManager.get('/account/logout', null, (err, response) => {
-      if (err) {
-        alert(err.message)
-        return
-      }
-
-      this.props.currentUserReceived(null)
-    })
+    this.props.logout(null)
   }
 
   render() {
     let content = null
 
-    if (!this.props.user) {
+    if (this.props.appStatus == 'loading') {
+      content = 'Fetching Current User Info...'
+    } else if (!this.props.user) {
       content = (
         <div>
           <h2>Log In</h2>
@@ -134,13 +106,17 @@ class Account extends Component {
 
 const stateToProps = (state) => {
   return {
-    user: state.account.user
+    user: state.account.user,
+    appStatus: state.account.appStatus
   }
 } 
 
 const dispatchToProps = (dispatch) => {
   return {
-    currentUserReceived: (user) => dispatch(actions.currentUserReceived(user))
+    login: (params) => dispatch(actions.login(params)),
+    register: (params) => dispatch(actions.register(params)),
+    logout: (params) => dispatch(actions.logout(params)),
+    fetchCurrentUser: (params) => dispatch(actions.fetchCurrentUser(params))
   }
 }
 
