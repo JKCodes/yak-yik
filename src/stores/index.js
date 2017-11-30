@@ -5,7 +5,7 @@ import { zoneReducer, commentReducer, accountReducer, profileReducer } from '../
 var store;
 
 export default {
-  configureStore: () => {
+  configureStore: (initial) => {
     const reducers = combineReducers({
       zone: zoneReducer,
       comment: commentReducer,
@@ -15,6 +15,7 @@ export default {
 
     store = createStore(
       reducers,
+      initial,
       window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
       applyMiddleware(thunk)
     )
