@@ -123,7 +123,7 @@ export default {
 
       APIManager.get('/account/currentuser', params, (err, response) => {
         if (err) {
-          alert(err.message)
+          console.log(err.message)
 
           return
         }
