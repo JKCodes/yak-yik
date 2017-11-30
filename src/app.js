@@ -4,16 +4,14 @@ import { Home, ProfileInfo } from './components/layout';
 import { CurrentUser } from './components/containers';
 import { Provider } from 'react-redux';
 import store from './stores';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 const app = (
   <Provider store={store.configureStore() }>
-    <Router>
-      <Switch>
-        <Route exact path='/' component={Home}></Route>
-        <Route exact path='/profile/:username' component={ProfileInfo}></Route>
-        <Route exact path='/currentuser' component={CurrentUser}></Route>
-      </Switch>
+    <Router history={browserHistory}>
+        <Route path='/' component={Home}></Route>
+        <Route path='/profile/:username' component={ProfileInfo}></Route>
+        <Route path='/currentuser' component={CurrentUser}></Route>
     </Router>
   </Provider>
 )

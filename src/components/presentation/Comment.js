@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styles from './styles';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import { ImageHelper } from '../../utils'
 
 class Comment extends Component {
