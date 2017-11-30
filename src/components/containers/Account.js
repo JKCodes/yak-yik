@@ -18,10 +18,6 @@ class Account extends Component {
     }
   }
 
-  componentDidMount() {
-    this.props.fetchCurrentUser(null)
-  }
-
   updateProfile(event) {
     event.preventDefault()
     let updateProfile = Object.assign({}, this.state.profile)

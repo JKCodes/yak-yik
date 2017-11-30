@@ -1,6 +1,7 @@
 var express = require('express')
 var router = express.Router()
 var ProfileController = require('../controllers/ProfileController')
+var AccountController = require('../controllers/AccountController')
 var bcrypt = require('bcrypt')
 
 router.get('/:action', function(req, res, next) {
@@ -17,30 +18,19 @@ router.get('/:action', function(req, res, next) {
 
   if (action == 'currentuser') {
 
-    if (!req.session || !req.session.user) {
-      res.json({
-        confirmation: 'fail',
-        message: 'User not logged in'
-      })
-
-      return
-    }
-
-    ProfileController.findById(req.session.user, function(err, result) {
-      if (err) {
-        res.json({
-          confirmation: 'fail',
-          message: err
-        })
-
-        return
-      }
-
+    AccountController.currentUser(req)
+    .then(function(result) {
       res.json({
         confirmation: 'success',
         user: result
       })
     })
+    .catch(function(err) {
+      res.json({
+        confirmation: 'fail',
+        message: err.message
+      })
+    })      
   }
 })
 

@@ -7,12 +7,13 @@ import { connect } from 'react-redux';
 class Comments extends Component {
   constructor() {
     super()
+    this.checkForComments = this.checkForComments.bind(this)
     this.state = {
 
     }
   }
 
-  componentDidUpdate() {
+  checkForComments() {
     let zone = this.props.zones[this.props.index]
     if (!zone) {
       return
@@ -29,6 +30,14 @@ class Comments extends Component {
     }
 
     this.props.fetchComments({zone: zone._id}, zone)
+  }
+
+  componentDidMount() {
+    this.checkForComments()
+  }
+
+  componentDidUpdate() {
+    this.checkForComments()
   }
 
   submitComment(comment) {

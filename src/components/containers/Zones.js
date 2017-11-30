@@ -11,10 +11,6 @@ class Zones extends Component {
     }
   }
 
-  componentDidMount() {
-    this.props.fetchZones(null)
-  }
-
   submitZone(zone) {
     this.props.zoneCreated(zone)
   }
