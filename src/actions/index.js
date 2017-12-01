@@ -122,17 +122,8 @@ export default {
       })
 
       APIManager.get('/account/currentuser', params, (err, response) => {
-        if (err && err.message != 'User not logged in') {
+        if (err) {
           alert(err.message)
-
-          return
-        }
-
-        if (!response) {
-          dispatch({
-            type: constants.CURRENT_USER_RECEIVED,
-            user: null
-          })
 
           return
         }

@@ -7,7 +7,7 @@ module.exports = {
 
     return new Promise(function(resolve, reject) {
       if (!req.session || !req.session.user) {
-        reject({message: 'User not logged in'})
+        resolve(null)
 
         return
       }
