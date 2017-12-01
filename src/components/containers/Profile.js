@@ -10,20 +10,31 @@ class Profile extends Component {
     }
   }
 
-  componentDidMount(){
-
+  componentDidMount() {
     const profile = this.props.profiles[this.props.username]
-    if (profile) {
 
-      if (this.props.commentStatus == 'loading') {
-        return
-      }
-
-      this.props.fetchComments({'author.id': profile._id}, null)
+    if (profile == null) {
+      this.props.fetchProfile({username: this.props.username})
       return
     }
 
-    this.props.fetchProfile({username: this.props.username})
+    if (this.props.comments[profile._id]) {
+      return
+    }
+
+    this.props.fetchComments({'author.id': profile._id})
+  }
+
+  componentDidUpdate() {
+    const profile = this.props.profiles[this.props.username]
+
+    if (!profile) {
+      return
+    }
+
+    if (!this.props.comments[profile._id]) {
+      this.props.fetchComments({'author.id': profile._id})
+    }
   }
 
   render(){
@@ -70,9 +81,8 @@ class Profile extends Component {
 const stateToProps = (state) => {
   return {
     profiles: state.profile.map,
-    comments: state.comment.profileMap,
-    appStatus: state.profile.appStatus,
-    commentStatus: state.comment.appStatus
+    comments: state.comment.map,
+    appStatus: state.profile.appStatus
   }
 } 
 

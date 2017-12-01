@@ -29,7 +29,7 @@ class Comments extends Component {
       return
     }
 
-    this.props.fetchComments({zone: zone._id}, zone)
+    this.props.fetchComments({zone: zone._id})
   }
 
   componentDidMount() {
@@ -111,7 +111,6 @@ const stateToProps = (state) => {
     commentsMap: state.comment.map,
     index: state.zone.selectedZone,
     zones: state.zone.list,
-    commentsLoaded: state.comment.commentsLoaded,
     user: state.account.user,
     appStatus: state.comment.appStatus
   }
@@ -120,7 +119,7 @@ const stateToProps = (state) => {
 const dispatchToProps = (dispatch) => {
   return {
     updateComment: (comment, params) => dispatch(actions.updateComment(comment, params)),
-    fetchComments: (params, zone) => dispatch(actions.fetchComments(params, zone)),
+    fetchComments: (params) => dispatch(actions.fetchComments(params)),
     commentCreated: (params) => dispatch(actions.commentCreated(params))
   }
 }

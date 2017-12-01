@@ -88,7 +88,7 @@ export default {
     }
   },
 
-  fetchComments: (params, zone) => {
+  fetchComments: (params) => {
     return (dispatch) => {
       dispatch({
         type: constants.APPLICATION_STATE,
@@ -107,7 +107,7 @@ export default {
         dispatch({
           type: constants.COMMENTS_RECEIVED,
           comments: comments,
-          zone: zone
+          params: params
         })
       })
     }
