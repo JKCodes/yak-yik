@@ -3,6 +3,7 @@ import constants from '../constants'
 var initialState = {
   commentsLoaded: false,
   map: {},
+  profileMap: {},
   appStatus: 'ready'
 }
 
@@ -10,6 +11,7 @@ export default (state = initialState, action) => {
 
   let updated = Object.assign({}, state)
   let updatedMap = Object.assign({}, updated.map)
+  let updatedProfileMap = Object.assign({}, updated.profileMap)
 
   switch (action.type) {
 
@@ -22,14 +24,26 @@ export default (state = initialState, action) => {
       return updated
 
     case constants.COMMENTS_RECEIVED:
-      let zoneComments = (updatedMap[action.zone._id]) ? Object.assign([], updatedMap[action.zone._id]) : []
 
-      action.comments.forEach((comment, i) => {
-        zoneComments.push(comment)
+      if (action.zone) {
+        let zoneComments = (updatedMap[action.zone._id]) ? Object.assign([], updatedMap[action.zone._id]) : []
+
+        action.comments.forEach((comment, i) => {
+          zoneComments.push(comment)
+        })
+
+        updatedMap[action.zone._id] = zoneComments
+        updated['map'] = updatedMap
+      }
+      
+
+      action.comments.forEach((comment, i) => {      
+        let profileComments = (updatedProfileMap[comment.author.id]) ? updatedProfileMap[comment.author.id] : []
+        profileComments.push(comment)
+        updatedProfileMap[comment.author.id] = profileComments
       })
 
-      updatedMap[action.zone._id] = zoneComments
-      updated['map'] = updatedMap
+      updated['profileMap'] = updatedProfileMap
       updated['commentsLoaded'] = true
       updated['appStatus'] = 'ready'
 

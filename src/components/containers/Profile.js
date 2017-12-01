@@ -11,9 +11,17 @@ class Profile extends Component {
   }
 
   componentDidMount(){
+
     const profile = this.props.profiles[this.props.username]
-    if (profile) 
+    if (profile) {
+
+      if (this.props.commentStatus == 'loading') {
+        return
+      }
+
+      this.props.fetchComments({'author.id': profile._id}, null)
       return
+    }
 
     this.props.fetchProfile({username: this.props.username})
   }
@@ -23,6 +31,14 @@ class Profile extends Component {
 
     let header = null
     if (profile) {
+
+      const comments = (this.props.comments[profile._id]) ? this.props.comments[profile._id] : []
+      const list = comments.map((comment, i) => {
+        return (<li key={i}>{comment.body}</li>)
+      })
+      console.log(this.props.comments)
+      console.log(profile._id)
+
       header = (
         <div>
           <h3>{profile.username}</h3>
@@ -30,6 +46,11 @@ class Profile extends Component {
             gender: {profile.gender}<br />
             city: {profile.city}
           </p>
+
+          <h2>Comments</h2>
+          <ol>
+            {list}
+          </ol>
         </div>
       )
     }
@@ -49,13 +70,16 @@ class Profile extends Component {
 const stateToProps = (state) => {
   return {
     profiles: state.profile.map,
-    appStatus: state.profile.appStatus
+    comments: state.comment.profileMap,
+    appStatus: state.profile.appStatus,
+    commentStatus: state.comment.appStatus
   }
 } 
 
 const dispatchToProps = (dispatch) => {
   return {
-    fetchProfile: (params) => dispatch(actions.fetchProfile(params))
+    fetchProfile: (params) => dispatch(actions.fetchProfile(params)),
+    fetchComments: (params, zone) => dispatch(actions.fetchComments(params, zone))
   }
 }
 

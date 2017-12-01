@@ -62,7 +62,7 @@ class Comment extends Component {
           </p>
           <img style={style.icon} src={ImageHelper.thumbnail(author.image, 32)} />
           <span style={style.commentData}>
-            <Link to={`/profile/${currentComment.username}`}>{author.username}</Link>
+            <Link to={`/profile/${author.username}`}>{author.username}</Link>
           </span>
           <span style={style.commentBar}>|</span>
           <span style={style.commentData}>{currentComment.timestamp}</span>
