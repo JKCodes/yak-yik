@@ -5,10 +5,8 @@ class Main extends Component {
 
   render() {
     return (
-      <div id="wrapper" className="clearfix">
-        <Sidebar />
+      <div>
         { this.props.children }
-        <Footer />
       </div>
     )
   }
